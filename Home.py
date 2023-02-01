@@ -62,7 +62,7 @@ def features(float_features):
 img1 = Image.open('img\img1.png')
 img2 = Image.open('img\pacificaCorrelation.png')
 #Titre de projet et son but
-st.title('Estimation de la valeur de ph ')
+st.title('Acidité Océonique ')
 st.image(img1)
 st.write('Le but de ce projet et d\'estimer la valeur de ph utilisant des différents  modeèls de machine learning et des différents variables .')
 
@@ -181,9 +181,9 @@ if st.button("Estimer la valeur de ph"):
             df = np.array(df)
             prediction = PHSPHT_SILCAT_OXYGEN.predict(df)
         elif (nbVr == [2,4,5]):
-            df = pd.DataFrame(data={'PHSPHT': pho, 'SILCAT': slc, 'OXYGEN': oxy}, index=[0])
+            df = pd.DataFrame(data={'PHSPHT': pho, 'SILCAT': slc, 'TCARBN': tCarbn}, index=[0])
             df = np.array(df)
-            prediction = PHSPHT_SILCAT_OXYGEN.predict(df)
+            prediction = PHSPHT_SILCAT_TCARBN.predict(df)
         elif (nbVr == [1,2,5]):
             df = pd.DataFrame(data={'PHSPHT': pho, 'SILCAT': slc, 'TMP':tmp}, index=[0])
             df = np.array(df)

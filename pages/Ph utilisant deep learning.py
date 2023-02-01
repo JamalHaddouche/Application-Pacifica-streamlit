@@ -6,7 +6,7 @@ import pandas as pd
 from keras.models import load_model
 
 #Titre de projet et son but
-st.title('Estimation de la valeur de ph ')
+st.title('Acidité Océonique ')
 
 #reshape des valeurs saisie par l'utilisateur
 def features(float_features):
