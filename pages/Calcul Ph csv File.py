@@ -1,7 +1,11 @@
 import streamlit as st
 import pandas as pd
 import pickle
+from branca.element import Figure
 import numpy as np
+import folium as fl
+from streamlit_folium import st_folium
+
 ##Model de machine learning
 #5variables
 _5var = pickle.load(open("model/allFeatures/pacifica_all_features_SVR.pkl", "rb"))
@@ -49,12 +53,12 @@ TCARBN_model=pickle.load(open("model/oneFeature/SVR_1v_TCARBN_","rb"))
 
 st.title('Acidité océonique')
 
-data= st.file_uploader('S\'il vous plait respecter l\'entete suivante:Température => TMP,Oxygène=> OXYGEN,Totale Carbonique=> TCARBN,Silicate=>SILCAT,Phosphate=> PHSPHT')
+dataMap=pd.DataFrame()
+data= st.file_uploader('S\'il vous plait respecter l\'entete suivante:Langitude, Latitude,Température => TMP,Oxygène=> OXYGEN,Totale Carbonique=> TCARBN,Silicate=>SILCAT,Phosphate=> PHSPHT')
 if data is not None:
     # Can be used wherever a "file-like" object is accepted:
     dataframe = pd.read_csv(data)
     st.write('Choisir les variables a utilisé pour predire la valeur de PH')
-    dataframe = dataframe[:20]
     Ph_Mesured = dataframe.filter(items=['PH'])
     datacopy=dataframe.copy()
     col1, col2, col3 = st.columns(3)
@@ -190,23 +194,42 @@ if data is not None:
             prediction = _5var.predict(df)
 
 
-        Ph_Mesured['PH_Predicted']=prediction
+        Ph_Mesured['Ph_Predicted']=prediction
         st.line_chart(Ph_Mesured)
 
         #Download les données avec leurs Ph estimer
-        data_download = dataframe.filter(items=['TMP', 'OXYGEN', 'TCARBN', 'SILCAT', 'PHSPHT'])
-        data_download['Ph_Predicte']=prediction
+        data_download = dataframe.filter(items=['Longitude','Latitude','TMP', 'OXYGEN', 'TCARBN', 'SILCAT', 'PHSPHT','PH'])
+        data_download['Ph_Predicted']=prediction
         @st.cache
         def convert_df(df):
             # IMPORTANT: Cache the conversion to prevent computation on every rerun
             return df.to_csv().encode('utf-8')
-
-
         csv = convert_df(data_download)
 
+
+        dataMap=data_download.copy()
+        st.write(dataMap)
         st.download_button(
             label="Download data as CSV",
             data=csv,
             file_name='EstmationPh.csv',
             mime='text/csv',
         )
+# Creating Basemap
+# if dataMap.empty:
+#     m = fl.Map()
+#     m.add_child(fl.LatLngPopup())
+#     map = st_folium(m, height=350, width=700)
+# else:
+#     m = fl.Map(tiles="Stamen Watercolor")
+#     m.add_child(fl.LatLngPopup())
+#     for i,row in dataMap.iterrows():
+#         lat = dataMap.at[i, 'Latitude']
+#         lng = dataMap.at[i, 'Longitude']
+#         popup = 'Lat : ' + str(lat) + '<br>' + \
+#                 '<br>' + 'Lon: ' + str(lat)+'<br>'+'PH mesured:'+str(dataMap.at[i, 'PH'])\
+#                 +'<br>'+'PH predicted:'+str(dataMap.at[i, 'Ph_Predicted'])
+#
+#         fl.Marker(location=[lat, lng], popup=popup, icon= \
+#             fl.Icon(color='blue')).add_to(m)
+#     map = st_folium(m, height=350,width = 700)
