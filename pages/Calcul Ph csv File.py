@@ -53,7 +53,9 @@ SILICAT_model=pickle.load(open("model/oneFeature/SVR_1v_SILCAT_","rb"))
 TCARBN_model=pickle.load(open("model/oneFeature/SVR_1v_TCARBN_","rb"))
 
 
-st.title('Acidité océonique')
+#Titre de projet et son but
+coli1, coli2, coli3 = st.columns([0.2,0.3, 0.2])
+coli2.title('Acidité Océonique ')
 
 dataMap=pd.DataFrame()
 data= st.file_uploader('S\'il vous plait respecter l\'entete suivante:Langitude, Latitude,Température => TMP,Oxygène=> OXYGEN,Totale Carbonique=> TCARBN,Silicate=>SILCAT,Phosphate=> PHSPHT')

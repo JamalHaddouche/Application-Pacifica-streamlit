@@ -7,7 +7,8 @@ from keras.models import load_model
 
 st.set_page_config(layout="wide")
 #Titre de projet et son but
-st.title('Acidité Océonique ')
+coli1, coli2, coli3 = st.columns([0.2,0.3, 0.2])
+coli2.title('Acidité Océonique ')
 
 #reshape des valeurs saisie par l'utilisateur
 def features(float_features):
@@ -20,11 +21,13 @@ def features(float_features):
 def get_pos(lat,lng):
     return lat,lng
 
-m = fl.Map()
-m.add_child(fl.LatLngPopup())
-map = st_folium(m, height=350, width=700)
-if map['last_clicked'] is not None:
-    data = get_pos(map['last_clicked']['lat'],map['last_clicked']['lng'])
+with coli2:
+    m = fl.Map()
+    m.add_child(fl.LatLngPopup())
+    map = st_folium(m, height=350, width=700)
+    if map['last_clicked'] is not None:
+        data = get_pos(map['last_clicked']['lat'], map['last_clicked']['lng'])
+
 
 ##################
 

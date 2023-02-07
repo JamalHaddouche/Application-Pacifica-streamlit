@@ -66,8 +66,9 @@ img2 = Image.open('img\pacificaCorrelation.png')
 img3=Image.open('img/ocean-acid.jpg')
 #Titre de projet et son but
 
-st.title('Acidité Océonique ')
+
 col1, col2, col3 = st.columns([0.2,0.3, 0.2])
+col2.title('Acidité Océonique ')
 col2.image(img1, use_column_width=True)
 #st.image(img1)
 st.write('Le but de ce projet et d\'estimer la valeur de ph utilisant des différents  modeèls de machine learning et des différents variables .')
