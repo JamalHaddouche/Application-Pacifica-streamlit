@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 from keras.models import load_model
 
+st.set_page_config(layout="wide")
 #Titre de projet et son but
 st.title('Acidité Océonique ')
 

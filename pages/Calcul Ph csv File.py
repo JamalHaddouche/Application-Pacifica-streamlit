@@ -6,6 +6,8 @@ import numpy as np
 import folium as fl
 from streamlit_folium import st_folium
 
+
+st.set_page_config(layout="wide")
 ##Model de machine learning
 #5variables
 _5var = pickle.load(open("model/allFeatures/pacifica_all_features_SVR.pkl", "rb"))
@@ -215,21 +217,16 @@ if data is not None:
             file_name='EstmationPh.csv',
             mime='text/csv',
         )
-# Creating Basemap
-# if dataMap.empty:
-#     m = fl.Map()
-#     m.add_child(fl.LatLngPopup())
-#     map = st_folium(m, height=350, width=700)
-# else:
-#     m = fl.Map(tiles="Stamen Watercolor")
-#     m.add_child(fl.LatLngPopup())
-#     for i,row in dataMap.iterrows():
-#         lat = dataMap.at[i, 'Latitude']
-#         lng = dataMap.at[i, 'Longitude']
-#         popup = 'Lat : ' + str(lat) + '<br>' + \
-#                 '<br>' + 'Lon: ' + str(lat)+'<br>'+'PH mesured:'+str(dataMap.at[i, 'PH'])\
-#                 +'<br>'+'PH predicted:'+str(dataMap.at[i, 'Ph_Predicted'])
+
+
+# #if not dataMap.empty:
+# m = fl.Map()
+# m.add_child(fl.LatLngPopup())
+# for i, row in dataMap.iterrows():
+#     lat = dataMap.at[i, 'Latitude']
+#     lng = dataMap.at[i, 'Longitude']
+#     print(lat, lng)
 #
-#         fl.Marker(location=[lat, lng], popup=popup, icon= \
-#             fl.Icon(color='blue')).add_to(m)
-#     map = st_folium(m, height=350,width = 700)
+#     popup = 'Latitude : ' + str(lat) + '<br>' + 'Longitude: ' + str(lng)
+#     fl.Marker(location=[lat, lng], popup=popup, icon=fl.Icon(color='blue')).add_to(m)
+# map = st_folium(m, height=350, width=700)

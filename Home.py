@@ -6,6 +6,8 @@ import pandas as pd
 import pickle
 
 
+
+st.set_page_config(layout="wide")
 ##Model de machine learning
 #5variables
 _5var = pickle.load(open("model/allFeatures/pacifica_all_features_SVR.pkl", "rb"))
@@ -59,11 +61,15 @@ def features(float_features):
     return fts
 
 
-img1 = Image.open('img\img1.png')
+img1 = Image.open('img\img5.png')
 img2 = Image.open('img\pacificaCorrelation.png')
+img3=Image.open('img/ocean-acid.jpg')
 #Titre de projet et son but
+
 st.title('Acidité Océonique ')
-st.image(img1)
+col1, col2, col3 = st.columns([0.2,0.3, 0.2])
+col2.image(img1, use_column_width=True)
+#st.image(img1)
 st.write('Le but de ce projet et d\'estimer la valeur de ph utilisant des différents  modeèls de machine learning et des différents variables .')
 
 
